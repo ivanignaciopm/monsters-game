@@ -1,0 +1,76 @@
+import random
+import datetime
+its_day = True
+total_territory = 100
+monsters = []
+humans = []
+teams = {}
+
+class Monster:
+  # if a monster it's dead his power will duplicate and also his hp. if it's Nightime they will become zombies.
+  def __init__(self, name, type = 'monster', dead = False, zombie = False):
+    self.name = name 
+    self.type = type 
+    self.hp = 100
+    self.isalive = dead
+    self.zombie = zombie
+    self.attack = 20
+    self.team = {}
+    monsters.append(self)
+  def __repr__(self):
+    print('{} is currently {} his hp is {}, his attack is {}, and is in the {} team.').format(self.name, self.type, self.hp, self.attack, str(self.team))
+  def zombieform(self, its_day):
+    while its_day == True:
+      self.zombie = True
+  def power(self):
+    while self.zombie == True:
+      self.hp = self.hp *2
+      self.attack = self.attack *3
+  def ghost (self):
+    if self.hp == 0:
+      self.type = 'Ghost'
+      self.attack = self.attack/2
+
+class HumanFriend:
+  # every monster has a human friend. they are a team and they are trying to conquer the world.
+  def __init__(self, name, bloodtype, zombie = False):
+    self.name = name
+    self.blood = bloodtype
+    self.zombie = zombie
+    self.hp = 50
+    self.attack = 10
+    self.territory = 0
+    humans.append(self)
+  def __repr__(self):
+    print('This human is called {}, with an {} hp, {} bloodtype, {} attack and {} m2 of territory.'.format(self.name, self.hp, self.blood, self.attack, self.territory))
+
+  def zombieform(self, its_day):
+    while its_day == False and not self.blood == '0':
+      self.zombie = True
+
+  def power(self):
+    while self.zombie == True:
+      self.attack = self.attack*2
+      self.hp == self.hp*2
+  def territory(self, totalpower):
+    True
+print('The day has started...')
+
+monster_1 = Monster('Alfredo')
+monster_2 = Monster('Cachulo')
+monster_3 = Monster('ElLokoCR4zy', 'Ghost')
+monster_4 = Monster('Demian')
+monster_5 = Monster('TerrorMaker')
+
+human1 = HumanFriend('Cony', 'A505')
+human2 = HumanFriend('Jhony', 'B404')
+human3 = HumanFriend('Louie', '0')
+human4 = HumanFriend('Carlo', 'A505')
+human5 = HumanFriend('Alicia', '0')
+      
+
+
+
+
+
+  
