@@ -1,5 +1,6 @@
-import random
-import datetime
+from random import random
+from datetime import datetime
+import time
 its_day = True
 total_territory = 100
 monsters = []
@@ -16,14 +17,14 @@ class Monster:
     self.zombie = zombie
     self.attack = 20
     self.team = {}
-    monsters.append(self)
+    monsters.append(self.name)
   def __repr__(self):
     return '{} it\'s currently hp is {}, his attack is {}'.format(self.name, self.hp, self.attack)
-  def zombieform(self, its_day):
-    while its_day == True:
+  def zombieform(self):
+    if its_day == False:
       self.zombie = True
   def power(self):
-    while self.zombie == True:
+    if self.zombie == True:
       self.hp = self.hp *2
       self.attack = self.attack *3
   def ghost (self):
@@ -40,18 +41,18 @@ class HumanFriend:
     self.hp = 50
     self.attack = 10
     self.territory = 0
-    humans.append(self)
+    humans.append(self.name)
   def __repr__(self):
-    print('This human is called {}, with an {} hp, {} bloodtype, {} attack and {} m2 of territory.'.format(self.name, self.hp, self.blood, self.attack, self.territory))
+    return 'This human is called {}, with an {} hp, {} bloodtype, {} attack and {} m2 of territory.'.format(self.name, self.hp, self.blood, self.attack, self.territory)
 
-  def zombieform(self, its_day):
-    while its_day == False and not self.blood == '0':
+  def zombieform(self):
+    while its_day == False and self.blood != '0':
       self.zombie = True
 
   def power(self):
     while self.zombie == True:
       self.attack = self.attack*2
-      self.hp == self.hp*2
+      self.hp = self.hp*2
   def territory(self, totalpower):
     True
 print('The day has started...')
@@ -69,6 +70,15 @@ human4 = HumanFriend('Carlo', 'A505')
 human5 = HumanFriend('Alicia', '0')
 
 print(monster_1)
+print(human2)
+its_day = False
+monster_1.zombieform()
+human2.zombieform()
+human2.power()
+print(human2)
+print(monster_1)
+print(monsters)
+print(humans)
 
 
 
