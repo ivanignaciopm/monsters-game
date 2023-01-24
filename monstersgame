@@ -1,7 +1,8 @@
 import random
 import datetime
 import time
-its_day = True
+fd2 = [True, False,True]
+its_day = random.choice(fd2)
 total_territory = 100
 monsters = []
 humans = []
@@ -69,7 +70,6 @@ human3 = HumanFriend('Louie', '0')
 human4 = HumanFriend('Carlo', 'A505')
 human5 = HumanFriend('Alicia', '0')
 
-#def night()
 def randomteams():
   while len(teams) < len(humans):
     r1 = random.choice(monsters)
@@ -79,12 +79,14 @@ def randomteams():
   return teams
 #def winner()
 #def display()
-its_day = False
+#def a_fight_created()
 monster_1.zombieform()
 human2.zombieform()
 human2.power()
 ran = randomteams()
-print(ran)
+#print(ran)
+print(human2)
+print(str(its_day))
 
 
 
