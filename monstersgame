@@ -18,7 +18,7 @@ class Monster:
     self.team = {}
     monsters.append(self)
   def __repr__(self):
-    print('{} is currently {} his hp is {}, his attack is {}, and is in the {} team.').format(self.name, self.type, self.hp, self.attack, str(self.team))
+    print('{} is currently {} his hp is {}, his attack is {}').format(self.name, self.type, self.hp, self.attack)
   def zombieform(self, its_day):
     while its_day == True:
       self.zombie = True
@@ -67,7 +67,8 @@ human2 = HumanFriend('Jhony', 'B404')
 human3 = HumanFriend('Louie', '0')
 human4 = HumanFriend('Carlo', 'A505')
 human5 = HumanFriend('Alicia', '0')
-      
+
+print(monster_1)
 
 
 
