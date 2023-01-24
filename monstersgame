@@ -18,7 +18,7 @@ class Monster:
     self.team = {}
     monsters.append(self)
   def __repr__(self):
-    print('{} is currently {} his hp is {}, his attack is {}').format(self.name, self.type, self.hp, self.attack)
+    return '{} it\'s currently hp is {}, his attack is {}'.format(self.name, self.hp, self.attack)
   def zombieform(self, its_day):
     while its_day == True:
       self.zombie = True
