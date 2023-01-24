@@ -1,5 +1,5 @@
-from random import random
-from datetime import datetime
+import random
+import datetime
 import time
 its_day = True
 total_territory = 100
@@ -46,18 +46,18 @@ class HumanFriend:
     return 'This human is called {}, with an {} hp, {} bloodtype, {} attack and {} m2 of territory.'.format(self.name, self.hp, self.blood, self.attack, self.territory)
 
   def zombieform(self):
-    while its_day == False and self.blood != '0':
+    if its_day == False and self.blood != '0':
       self.zombie = True
 
   def power(self):
-    while self.zombie == True:
+    if self.zombie == True:
       self.attack = self.attack*2
       self.hp = self.hp*2
   def territory(self, totalpower):
     True
 print('The day has started...')
 
-monster_1 = Monster('Alfredo')
+monster_1 = Monster('Baaszjeh')
 monster_2 = Monster('Cachulo')
 monster_3 = Monster('ElLokoCR4zy', 'Ghost')
 monster_4 = Monster('Demian')
@@ -69,17 +69,22 @@ human3 = HumanFriend('Louie', '0')
 human4 = HumanFriend('Carlo', 'A505')
 human5 = HumanFriend('Alicia', '0')
 
-print(monster_1)
-print(human2)
+#def night()
+def randomteams():
+  while len(teams) < len(humans):
+    r1 = random.choice(monsters)
+    r2 = random.choice(humans)
+    if r2 not in teams:
+       teams[r2] = r1
+  return teams
+#def winner()
+#def display()
 its_day = False
 monster_1.zombieform()
 human2.zombieform()
 human2.power()
-print(human2)
-print(monster_1)
-print(monsters)
-print(humans)
-
+ran = randomteams()
+print(ran)
 
 
 
