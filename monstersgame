@@ -1,14 +1,18 @@
 import random
-import datetime
 import time
-fd2 = [True, False]
-its_day = random.choice(fd2)
-total_territory = 100
+its_day = "Day"
+def change_day_night():
+    global its_day
+    its_day = random.choice(["Day", "Night"])
 monsters = []
 monsters_name = []
 humans = []
 humans_name = []
 teams = {}
+territory = {}
+its_day = "Day"
+def daytime_or_nighttime():
+    its_day = random.choice(["Day", "Night"])
 class Monster:
   # if a monster it's dead his power will duplicate and also his hp. if it's Nightime they will become zombies.
   def __init__(self, name,attack = 20, hp = 100, type = 'monster',dead = False, zombie = False):
@@ -23,7 +27,7 @@ class Monster:
   def __repr__(self):
     return self.name
   def zombieform(self):
-    if its_day == False:
+    if its_day =='Night':
       self.zombie = True
   def power(self):
     if self.zombie == True:
@@ -35,37 +39,36 @@ class Monster:
       self.attack = self.attack/2
 class HumanFriend:
   # every monster has a human friend. they are a team and they are trying to conquer the world.
-  def __init__(self, name, bloodtype, zombie = False):
+  def __init__(self, name, bloodtype, hp, attack, zombie = False):
     self.name = name
     self.blood = bloodtype
     self.zombie = zombie
-    self.hp = 100
-    self.attack = 15
+    self.hp = hp
+    self.attack = attack
     self.territory = 0
     humans.append(self)
     humans_name.append(self.name)
+    territory[self.name] = 0
   #def __repr__(self):
     #return 'This human is called {}, with an {} hp, {} bloodtype, {} attack and {} m2 of territory.'.format(self.name, self.hp, self.blood, self.attack, self.territory)
   def zombieform(self):
-    if its_day == False and self.blood != '0':
+    if its_day == 'Night' and self.blood != '0':
       self.zombie = True
   def power(self):
     if self.zombie == True:
       self.attack = self.attack*2
       self.hp = self.hp*2
-  def territory(self, totalpower):
-    True
-print('The day has started...')
+
 monster_1 = Monster('Baaszjeh',20, 125)
 monster_2 = Monster('Cachulo',35, 115)
 monster_3 = Monster('ElLokoCR4zy',100, 85, 'Ghost')
 monster_4 = Monster('Demian',90, 100)
 monster_5 = Monster('TerrorMaker',45, 135)
-human1 = HumanFriend('Cony', 'A505')
-human2 = HumanFriend('Jhony', 'B404')
-human3 = HumanFriend('Louie', '0')
-human4 = HumanFriend('Carlo', 'A505')
-human5 = HumanFriend('Alicia', '0')
+human1 = HumanFriend('Cony', 'A505', 120, 10)
+human2 = HumanFriend('Jhony', 'B404', 100, 15 )
+human3 = HumanFriend('Louie', '0', 150, 20 )
+human4 = HumanFriend('Carlo', 'A505', 130, 15 )
+human5 = HumanFriend('Alicia', '0', 150, 20 )
 def randomteams():
   while len(teams) < len(humans):
     r1 = random.choice(monsters)
@@ -79,11 +82,10 @@ def team_power(human):
 def team_hp(human):
   total_hp = human.hp + teams[human].hp
   return total_hp
-
-#def winner()
-#def display()
 def a_fight_created():
-  ratio = [True, False, False]
+  global max_value
+  max_value = max(territory, key=territory.get)
+  ratio = [True, False]
   r_choice = random.choice(ratio)
   if r_choice == True:
     team1 = random.choice(humans)
@@ -96,21 +98,26 @@ def a_fight_created():
     team2_hp = team_hp(team2)
     if team1_hp - team2_p > team2_hp - team1_p:
       winner = team1.name
+      territory[team1.name] += 10
     elif team1_hp - team2_p == team2_hp - team1_p or (team1_hp - team2_p <= 0 and team2_hp - team1_p <= 0):
       return 'it\'s a draw!'
     else:
       winner = team2.name
-    return '''A fight has been created!
+      territory[team2.name] += 10
+    return '''It is currently {}.
+    A fight has been created!
     Team 1 [{}, {}]                 Team 2 [{}, {}].
     attack: {}          vs.              attack: {}
       hp:  {}                             hp:    {}
 
     final hp: {}                         final hp: {}
 
-    {} is the winner!, + 10 territory'''.format(team1.name, teams[team1], team2.name, teams[team2], team1_p, team2_p, team1_hp, team2_hp, team1_hp - team2_p, team2_hp - team1_p, winner)
+    {} is the winner of the fight!, + 10 territory.
+    
+    {} is currently dominating the world!
+    '''.format(its_day, team1.name, teams[team1], team2.name, teams[team2], team1_p, team2_p, team1_hp, team2_hp, team1_hp - team2_p, team2_hp - team1_p, winner, max_value)
   else:
     return 'no fights for now'
-
 monster_1.zombieform()
 monster_2.zombieform()
 monster_3.zombieform()
@@ -135,8 +142,59 @@ ran = randomteams()
 def get_totals():
  for key in teams:
    print('the {}, {} team has {} total power and {} total hp'.format(key.name, teams[key].name, team_power(key), team_hp(key)))
-print(a_fight_created())
-#print(get_totals())
+def display():
+  for i in range(int(timesel)):
+   change_day_night()
+   print(a_fight_created())
+   print(''' ''')
+   time.sleep(2)
+def final_territories(): 
+  print('The final scores:')
+  for key in territory:
+    print('{}, {}'.format(key, territory[key]))
+
+def champion():
+  print('''
+  {} dominated the world this time... '''.format(max_value))
+def wingame():
+  if max_value == humanch:
+    print('You won the game!')
+  else:
+    print('''
+    You lost...''')
+
+print('Welcome to the Humans&Monsters game')
+print('''
+The game consist in 5 humans fighting for rule the world. 
+They fight in teams where they have a randomly assigned monster teammate.
+Some characters may be affected by the daytime an become zombies, giving them more attack/hp.
+By each fight won, the human earns a portion of the world's territory.
+The human who earns more by the match's end is the winner!.
+''')
+print('These are the monsters:')
+print(monsters_name)
+print('''
+And these are the humans:''')
+print (humans_name)
+humanch= input('''
+Please choose a human: ''')
+while humanch not in humans_name:
+  print('''
+  Enter a correct name!''')
+  humanch= input('''
+Please choose a human: ''')
+global timesel
+timesel = input('''
+Please indicate how long you want the game to last. in seconds: ''')
+while timesel != int and int(timesel) > 20:
+  timesel = input('''
+  Please enter a correct number between 0 and 20: ''')
+print('''The game has started...
+    ''')
+time.sleep(2)
+print(display(),final_territories(), champion(), wingame())
+
+  
 
 
   
